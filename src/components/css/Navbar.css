@@ -1,0 +1,129 @@
+/* src/components/css/Navbar.css */
+
+.navbar {
+  background-color: var(--bg-secondary); /* Dùng biến */
+  border-bottom: 1px solid var(--border-color); /* Dùng biến */
+  box-shadow: 0 1px 3px var(--shadow-color); /* Dùng biến */
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    max-width: 1300px;
+    padding: 0 24px;
+}
+
+.navbar-logo {
+    color: var(--text-accent); /* Dùng biến */
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-menu {
+    display: flex; /* Biến ul thành flex container */
+    align-items: center; /* Căn các item theo chiều dọc (để nút theme không bị lệch) */
+    list-style: none; /* Xóa dấu chấm đầu dòng */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    gap: 10px; /* Thêm khoảng cách giữa các mục menu */
+}
+
+.nav-link {
+    color: var(--text-secondary); /* Dùng biến */
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-accent); /* Dùng biến */
+}
+
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid var(--text-accent); /* Dùng biến */
+}
+
+/* Style cho link đang được active */
+.nav-link.active {
+    color: #0d6efd;
+    font-weight: bold;
+    border-bottom: 2px solid #0d6efd;
+}
+
+
+
+/* --- CSS CHO CÁC NÚT --- */
+
+.navbar-user-actions, .auth-links, .user-profile-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.auth-button {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none; /* Bỏ border mặc định */
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.login-button {
+    color: var(--text-accent); /* Dùng biến */
+    background-color: var(--bg-tertiary); /* Dùng biến */
+}
+.login-button:hover {
+    filter: brightness(0.95);
+}
+
+.register-button {
+    color: var(--text-on-accent); /* Dùng biến */
+    background-color: var(--text-accent); /* Dùng biến */
+}
+.register-button:hover {
+    filter: brightness(0.9);
+}
+
+.logout-button {
+    color: var(--danger-color); /* Dùng biến MỚI */
+    background-color: var(--danger-bg-light); /* Dùng biến MỚI */
+}
+.logout-button:hover {
+    filter: brightness(0.95);
+}
+
+.user-profile-nav .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-primary); /* Dùng biến */
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.user-profile-nav .user-info:hover {
+    background-color: var(--bg-tertiary); /* Dùng biến */
+}
+
+.user-avatar-nav {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}

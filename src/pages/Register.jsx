@@ -50,13 +50,23 @@ export default function Register() {
 
     console.log("User Info:", formData);
 
+    const payload = {
+      fullName: formData.fullName,
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    };
+
     try {
-      // giả lập API POST (bạn thay URL API thật vào đây)
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      
+      const response = await fetch(
+        "https://social-media-backend-90z2.onrender.com/api/register", 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
       console.log("Đăng ký thành công:", data);

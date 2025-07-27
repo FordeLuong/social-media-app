@@ -1,0 +1,26 @@
+/* File: src/components/css/LikeButton.css */
+
+.like-button {
+  padding: 8px 16px;
+  border: 1px solid var(--border-color); /* Dùng biến */
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: var(--bg-tertiary); /* Dùng biến */
+  color: var(--text-secondary); /* Dùng biến cho màu chữ phụ */
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.like-button:hover {
+  filter: brightness(0.95); /* Làm tối đi một chút khi hover */
+}
+
+/* Khi nút được bấm */
+.like-button.liked {
+  color: var(--text-accent); /* Đổi màu chữ thành màu nhấn */
+  border-color: var(--text-accent); /* Đổi màu viền thành màu nhấn */
+  background-color: var(--bg-tertiary); /* Giữ nguyên hoặc đổi nền thành màu khác nếu muốn */
+}

@@ -1,0 +1,37 @@
+/* File: src/components/css/Post.css */
+
+.post {
+  background-color: var(--bg-secondary); /* Dùng biến */
+  border: 1px solid var(--border-color); /* Dùng biến */
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.post-avatar { /* ... không đổi ... */ }
+
+.post-author {
+  font-weight: bold;
+  color: var(--text-primary); /* Dùng biến */
+}
+
+/* Thêm cho nội dung post */
+.post-body {
+    color: var(--text-primary); /* Dùng biến */
+}
+
+.post-footer {
+  border-top: 1px solid var(--border-color); /* Dùng biến */
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.post-comments {
+  margin-top: 12px;
+}

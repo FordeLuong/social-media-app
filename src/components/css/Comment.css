@@ -1,0 +1,13 @@
+/* File: src/components/css/Comment.css */
+
+.comment {
+  background-color: var(--bg-tertiary); /* Dùng biến */
+  padding: 10px 15px;
+  border-radius: 18px; /* Bo tròn hơn cho đẹp */
+  margin-bottom: 8px;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: var(--text-primary); /* Dùng biến */
+}
