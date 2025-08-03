@@ -127,3 +127,8 @@
     height: 32px;
     border-radius: 50%;
 }
+.user-name-nav {
+  color: black; /* Hoặc một màu nổi bật để test */
+  font-size: 16px; /* Đảm bảo có kích thước */
+  display: inline-block; /* Đảm bảo nó được hiển thị */
+}

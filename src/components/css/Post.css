@@ -1,37 +1,71 @@
 /* File: src/components/css/Post.css */
 
+/* --- Container chính cho mỗi bài đăng (Card) --- */
 .post {
-  background-color: var(--bg-secondary); /* Dùng biến */
-  border: 1px solid var(--border-color); /* Dùng biến */
+  /* background-color: var(--bg-secondary, #73d7e5); Dùng biến, dự phòng là màu trắng */
+  border: 5px solid var(--border-color, #787474);  /* Dùng biến, dự phòng là màu xám nhạt */
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 20px;
+  background-color: aquamarine;
+  
 }
 
+/* --- Header: chứa avatar và username --- */
 .post-header {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  gap: 12px;
+  padding: 12px 16px; /* Thêm padding riêng cho header */
 }
 
-.post-avatar { /* ... không đổi ... */ }
+.post-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
 .post-author {
-  font-weight: bold;
-  color: var(--text-primary); /* Dùng biến */
+  font-weight: 600; /* Hơi đậm hơn một chút */
+  color: var(--text-primary);
+  font-size: 16px;
+  margin: 0; /* Bỏ margin mặc định nếu nó là h3, h4 */
 }
 
-/* Thêm cho nội dung post */
-.post-body {
-    color: var(--text-primary); /* Dùng biến */
+/* --- Nội dung chính của bài đăng --- */
+/* Đổi tên class 'post-body' thành 'post-content' để nhất quán với JSX mẫu */
+.post-content { 
+    padding: 0 16px 12px 16px; /* Thêm padding cho nội dung */
+    color: var(--text-primary);
+    line-height: 1.5; /* Giãn dòng cho dễ đọc */
 }
 
+.post-content p {
+    margin: 0; /* Bỏ margin mặc định của thẻ <p> */
+}
+
+
+/* --- Footer: chứa các nút Like, Comment --- */
 .post-footer {
-  border-top: 1px solid var(--border-color); /* Dùng biến */
+  /* Các thuộc tính này đã tốt, giữ nguyên */
+  border-top: 1px solid var(--border-color);
   padding-top: 12px;
   margin-top: 12px;
+
+  /* Thêm padding ngang để căn chỉnh với các phần khác */
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 12px;
 }
 
+/* --- Khu vực hiển thị bình luận --- */
 .post-comments {
   margin-top: 12px;
+}
+
+.post-comments h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary, #65676b);
+    margin-bottom: 8px;
+    margin-top: 0;
 }

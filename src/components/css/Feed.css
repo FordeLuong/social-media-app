@@ -1,0 +1,16 @@
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feed-status {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+  font-size: 16px;
+}
+
+.feed-status.error {
+  color: #ed4956;
+}

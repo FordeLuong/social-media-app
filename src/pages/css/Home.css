@@ -1,47 +1,97 @@
 /* src/pages/css/Home.css */
 
+/* --- Layout chính của trang Home --- */
 .home-container {
     display: flex;
-    width: 100%;
-    margin-top: 60px; /* Chiều cao của Navbar */
-}
-
-.feed {
-    flex: 6; /* Chiếm phần lớn không gian */
+    justify-content: center; /* Căn giữa toàn bộ nội dung theo chiều ngang */
+    gap: 30px; /* Khoảng cách giữa feed và sidebar */
     padding: 20px;
-    background-color: #f0f2f5; /* Màu nền xám nhạt */
+    margin-top: 60px; /* Khoảng cách so với Navbar */
+    background-color: #f0f2f5; /* Màu nền xám nhạt cho toàn trang */
+    min-height: calc(100vh - 60px); /* Đảm bảo nền xám lấp đầy chiều cao màn hình */
 }
 
-/* Kiểu cho ô tạo bài viết */
-.create-post-placeholder {
+/* --- Khu vực nội dung chính (chứa CreatePost và Feed) --- */
+.main-content {
+    flex: 1; /* Cho phép co giãn */
+    max-width: 680px; /* Chiều rộng tối đa của feed giống Facebook/Instagram */
+}
+
+/* --- Sidebar bên phải --- */
+.sidebar-right {
+    width: 300px;
+    display: none; /* Mặc định ẩn trên màn hình nhỏ */
+}
+
+/* Hiển thị sidebar trên màn hình lớn hơn */
+@media (min-width: 1024px) {
+    .sidebar-right {
+        display: block;
+        /* Dùng position: sticky để sidebar "trôi" theo khi cuộn trang */
+        position: sticky;
+        top: 80px; /* 60px (navbar) + 20px (padding) */
+        height: fit-content; /* Chiều cao tự động theo nội dung */
+    }
+}
+
+
+/* --- Các style bạn đã viết (giữ lại và tinh chỉnh) --- */
+
+/* Kiểu cho ô tạo bài viết (di chuyển từ .create-post-placeholder cũ) */
+/* Tôi đã chuyển nó vào component CreatePost.css, nhưng để ở đây cũng được */
+/* Nếu bạn đã tạo CreatePost.css, bạn có thể xóa phần này đi */
+.create-post-container {
     background-color: white;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
     margin-bottom: 20px;
 }
 
-.create-post-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
+/* ... (Các style khác cho form tạo bài viết nên nằm trong CreatePost.css) ... */
 
-.create-post-placeholder input {
-    flex-grow: 1;
-    border: none;
-    background-color: #f0f2f5;
-    border-radius: 20px;
-    padding: 10px 15px;
-    font-size: 1rem;
-    outline: none;
-}
 
+/* --- Kiểu cho danh sách bài đăng (Feed) --- */
+/* Phần này nên nằm trong Feed.css để tách biệt, nhưng để đây cũng hoạt động */
 .post-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+
+/* --- Kiểu cho các chủ đề nổi bật trong Sidebar --- */
+.trending-topics {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.trending-topics h4 {
+    color: #65676b; /* Màu xám đậm hơn */
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e4e6eb; /* Thêm đường kẻ phân cách */
+}
+
+.trending-topics ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.trending-topics li {
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: #050505; /* Màu chữ chính */
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.trending-topics li:hover {
+    background-color: #f0f2f5; /* Hiệu ứng hover */
 }

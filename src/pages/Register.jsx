@@ -1,17 +1,23 @@
-// Trang đăng ký
+// src/pages/Register.jsx
 
 import { useState } from "react";
-import "./css/Register.css"
-
+import { Link, useNavigate } from "react-router-dom"; // Import thêm Link và useNavigate
+import { registerUser } from '../services/authService'; // Import hàm register từ service
+import "./css/Register.css";
 
 export default function Register() {
+  // Giữ nguyên state của form, nhưng bỏ confirmPassword vì chỉ cần để so sánh
   const [formData, setFormData] = useState({
-    fullName: "",
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    // Backend không yêu cầu fullName, có thể bỏ qua hoặc thêm vào sau
   });
+
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -20,121 +26,83 @@ export default function Register() {
     });
   };
 
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
-
-  const validatePassword = (password) => {
-    // Ít nhất 6 ký tự, có chữ và số
-    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Reset lỗi
+    setLoading(true);
 
+    // --- Validation cơ bản phía client ---
     if (formData.password !== formData.confirmPassword) {
-      alert("Password và Confirm Password không khớp!");
+      setError("Mật khẩu và xác nhận mật khẩu không khớp!");
+      setLoading(false);
       return;
     }
-
-    if (!validateEmail(formData.email)) {
-      alert("Email không hợp lệ!");
-      return;
-    }
-
-    if (!validatePassword(formData.password)) {
-      alert("Mật khẩu phải ít nhất 6 ký tự, gồm cả chữ và số!");
-      return;
-    }
-
-    console.log("User Info:", formData);
-
-    const payload = {
-      fullName: formData.fullName,
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
-    };
+    
+    // Bạn có thể thêm các validation khác cho email, password ở đây nếu muốn
 
     try {
-      
-      const response = await fetch(
-        "https://social-media-backend-90z2.onrender.com/api/register", 
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      // Chuẩn bị dữ liệu để gửi đi, chỉ lấy các trường mà backend yêu cầu
+      const userData = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      };
 
-      const data = await response.json();
-      console.log("Đăng ký thành công:", data);
-      alert("Đăng ký thành công!");
-    } catch (error) {
-      console.error("Lỗi khi đăng ký:", error);
-      alert("Có lỗi xảy ra khi đăng ký.");
+      // Gọi hàm registerUser từ service
+      await registerUser(userData);
+
+      // Nếu không có lỗi, thông báo và chuyển hướng
+      alert("Đăng ký thành công! Vui lòng đăng nhập.");
+      navigate("/login"); // Chuyển người dùng đến trang đăng nhập
+
+    } catch (err) {
+      // Lấy thông báo lỗi cụ thể từ server (ví dụ: "Email đã tồn tại")
+      const errorMessage = err.response?.data?.msg || "Có lỗi xảy ra khi đăng ký.";
+      setError(errorMessage);
+      console.error("Lỗi khi đăng ký:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="register-container">
-      <h1>Đăng ký tài khoản</h1>
+      <h1>Đăng ký tài khoản</h1>
       <form onSubmit={handleSubmit} className="register-form">
+        {/* Backend không có fullName, tạm thời ẩn đi */}
+        {/* 
         <label htmlFor="fullName">Full Name:</label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} required />
+        */}
 
         <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
 
         <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
 
         <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
 
         <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          required
-        />
+        <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+        
+        {/* Hiển thị lỗi nếu có */}
+        {error && <p className="error-message">{error}</p>}
 
-        <button type="submit">Đăng ký</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Đang tạo...' : 'Đăng ký'}
+        </button>
       </form>
+      
+      <div className="login-link-container">
+        <p>
+          Đã có tài khoản?{' '}
+          <Link to="/login" className="login-link">
+            Đăng nhập ngay
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
-
-// export default Register; // Removed duplicate default export

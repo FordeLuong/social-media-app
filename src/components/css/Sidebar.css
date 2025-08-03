@@ -1,34 +1,64 @@
 /* File: src/components/css/Sidebar.css */
 
+/* --- Container chính của Sidebar, sẽ tự co giãn theo nội dung --- */
 .sidebar {
-  /* Nền trong suốt để lấy màu của body (--bg-primary) */
-  background-color: transparent;
-  padding: 16px;
+  background-color: var(--bg-secondary, #ffffff);
+  padding: 20px; /* Tăng padding để thoáng hơn */
+  border-radius: 12px; /* Bo góc mềm mại hơn */
+  border: 1px solid var(--border-color, #e0e0e0);
+  /* Bạn có thể bỏ box-shadow nếu muốn thiết kế phẳng hơn */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */
+  height: fit-content; /* Chiều cao tự động theo nội dung */
 }
 
+/* --- Tiêu đề "Chủ đề nổi bật" --- */
 .sidebar h3 {
-  color: var(--text-secondary); /* Dùng biến */
+  color: var(--text-secondary, #606770);
   text-transform: uppercase;
-  font-size: 0.9rem;
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 15px;
+  font-size: 13px; /* Giảm nhẹ kích thước để tinh tế hơn */
+  font-weight: 700;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  margin-top: 0;
+  margin-bottom: 12px;
+  letter-spacing: 0.8px;
 }
 
+/* --- Danh sách các chủ đề --- */
 .sidebar ul {
   list-style-type: none;
-  padding-left: 0;
+  padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* Thuộc tính gap sẽ tự động tạo khoảng cách, không cần margin cho li */
+  gap: 6px; 
 }
 
+/* --- Thẻ <li> không cần style trực tiếp --- */
+.sidebar ul li { }
+
+/* --- Kiểu cho từng mục chủ đề (thẻ <a> hoặc <Link>) --- */
 .sidebar ul li a {
-  color: var(--text-primary); /* Dùng biến */
-  display: block;
-  padding: 8px;
-  border-radius: 6px;
+  color: var(--text-primary, #050505);
+  display: flex; /* Dùng flex để căn chỉnh icon và text (nếu có sau này) */
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px; /* Bo góc cho từng mục */
   text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: background-color 0.2s ease, transform 0.1s ease; /* Thêm hiệu ứng transform */
 }
 
+/* --- Hiệu ứng khi di chuột vào --- */
 .sidebar ul li a:hover {
-  background-color: var(--bg-tertiary); /* Dùng biến */
+  background-color: var(--bg-tertiary, #f0f2f5);
+  color: var(--accent-color, #1877f2); /* Màu xanh của Facebook */
+  /* transform: translateX(4px); */ /* Hiệu ứng di chuyển nhẹ sang phải */
+}
+
+/* --- Hiệu ứng khi click vào (tùy chọn) --- */
+.sidebar ul li a:active {
+    transform: scale(0.98); /* Thu nhỏ lại một chút khi click */
 }
