@@ -1,20 +1,36 @@
 // src/components/Post.jsx
 
-import React from 'react';
+import React, {useState} from 'react';
 import LikeButton from './LikeButton'; // Giả sử bạn có các component này
 import Comment from './Comment';
+import CommentForm from './CommentForm'; // Giả sử bạn có component này để thêm bình luận
 
-// 1. Sửa lại props: chỉ nhận vào một object duy nhất là `postData`
-function Post({ postData }) {
+
+
+function Post({ postData, onPostUpdate }) {
   // 2. Kiểm tra an toàn: Nếu không có postData, không render gì cả
+  const [postComments, setPostComments] = useState(postData.comments || []);
+
   if (!postData) {
     return null;
   }
+  
 
   // 3. Lấy dữ liệu từ bên trong object `postData`
   // Dữ liệu từ API của chúng ta có cấu trúc lồng nhau (nested)
-  const { author, content, comments, createdAt, likes } = postData;
+  const {_id, author, content, likes } = postData;
 
+  
+  const handleCommentAdded = (newComment) => {
+    // Thêm bình luận mới vào danh sách hiện tại để cập nhật giao diện
+    setPostComments([...postComments, newComment]);
+
+    // (Tùy chọn) Có thể thông báo lên cho Feed.jsx biết để cập nhật tổng số comment
+    if (onPostUpdate) {
+        const updatedPost = { ...postData, comments: [...postComments, newComment] };
+        onPostUpdate(updatedPost);
+    }
+  };
   return (
     <article className="post">
       <header className="post-header">
@@ -32,19 +48,27 @@ function Post({ postData }) {
       </div>
       
       <footer className="post-footer">
-        <LikeButton likes={likes} />
+        <LikeButton postId={_id} initialLikes={likes} />
         
         <div className="post-comments">
-          <h4>Bình luận ({comments.length})</h4>
+          <h4>Bình luận ({postComments.length})</h4>
           
-          {/* 4. Thêm kiểm tra an toàn: Chỉ map khi 'comments' tồn tại và là một mảng */}
-          {comments && comments.length > 0 && comments.map((comment) => (
-            <Comment
-              key={comment._id} // Dùng _id từ MongoDB làm key, tốt hơn index
-              author={comment.author.username}
-              text={comment.content}
-            />
-          ))}
+          <div className="comment-list">
+            {postComments && postComments.length > 0 ? (
+              postComments.map((comment) => (
+                <Comment
+                  key={comment._id}
+                  author={comment.author.username}
+                  text={comment.content}
+                />
+              ))
+            ) : (
+              <p className="no-comments">Chưa có bình luận nào.</p>
+            )}
+          </div>
+          
+          {/* 5. THÊM FORM BÌNH LUẬN VÀO ĐÂY */}
+          <CommentForm postId={_id} onCommentAdded={handleCommentAdded} />
         </div>
       </footer>
     </article>

@@ -1,0 +1,61 @@
+/* src/components/css/CommentForm.css */
+
+/* --- Container chính cho form bình luận --- */
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa avatar, input và nút */
+  margin-top: 16px; /* Khoảng cách với danh sách bình luận ở trên */
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color, #efefef); /* Đường kẻ phân cách nhẹ nhàng */
+}
+
+/* --- Avatar của người dùng đang đăng nhập --- */
+.comment-form-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* --- Ô nhập liệu cho bình luận --- */
+.comment-form-input {
+  flex-grow: 1; /* Chiếm hết không gian còn lại */
+  border: 1px solid var(--border-color, #dbdbdb);
+  background-color: var(--bg-tertiary, #fafafa); /* Màu nền rất nhạt */
+  border-radius: 20px; /* Bo tròn mềm mại */
+  padding: 8px 15px;
+  font-family: inherit; /* Sử dụng font chung của trang */
+  font-size: 14px;
+  outline: none; /* Bỏ viền xanh khi focus */
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hiệu ứng khi focus vào ô input */
+.comment-form-input:focus {
+  border-color: #a8a8a8;
+  background-color: #fff;
+}
+
+/* --- Nút "Gửi" bình luận --- */
+.comment-form-button {
+  background-color: transparent; /* Nền trong suốt */
+  border: none;
+  color: var(--accent-color, #0095f6); /* Màu xanh dương đặc trưng */
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.2s ease;
+}
+
+/* Hiệu ứng khi di chuột qua nút "Gửi" */
+.comment-form-button:hover {
+  color: var(--text-primary, #262626);
+}
+
+/* Kiểu cho nút khi đang loading hoặc input rỗng */
+.comment-form-button:disabled {
+  color: #b2dffc; /* Màu xanh nhạt hơn */
+  cursor: not-allowed;
+}

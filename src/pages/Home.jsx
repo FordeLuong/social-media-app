@@ -1,29 +1,58 @@
 // src/pages/Home.jsx
 
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // 1. Thêm useState, useEffect
 import CreatePost from '../components/CreatePost';
-import Feed from '../components/Feed'; // 1. Import Feed component
+import Feed from '../components/Feed';
+import { getAllPosts } from '../services/postService'; // 2. Import service
 import './css/Home.css';
 
 const Home = () => {
+  // 3. DI CHUYỂN STATE VÀ LOGIC TỪ FEED.JSX LÊN ĐÂY
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Logic để cập nhật feed sau khi tạo post mới sẽ được xử lý sau
-  // Hiện tại, người dùng sẽ cần refresh trang để thấy bài đăng mới.
-  // Chúng ta sẽ cải thiện điều này bằng Context hoặc state lifting.
-  const handlePostCreated = () => {
-    // Tạm thời, chúng ta có thể làm cách đơn giản nhất là reload lại trang
-    // window.location.reload(); 
-    // Hoặc lý tưởng hơn là có một cách để trigger Feed component fetch lại dữ liệu
-    console.log("Post mới đã được tạo, cần cập nhật lại feed!");
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await getAllPosts();
+        setPosts(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Lỗi khi tải bài viết:", err);
+        setError("Không thể tải được bài viết. Vui lòng thử lại sau.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  // 4. HÀM NÀY SẼ ĐƯỢC TRUYỀN XUỐNG CREATEPOST.JSX
+  const handlePostCreated = (newPost) => {
+    // Thêm bài đăng mới vào đầu danh sách, cập nhật UI ngay lập tức
+    setPosts([newPost, ...posts]);
   };
 
   return (
     <div className="home-container">
-      {/* Phần trung tâm của trang chủ */}
       <main className="main-content">
+        {/* 5. TRUYỀN HÀM XUỐNG CREATEPOST */}
         <CreatePost onPostCreated={handlePostCreated} />
-        <Feed /> 
+        
+        {/* 6. TRUYỀN DỮ LIỆU XUỐNG FEED */}
+        <Feed 
+          posts={posts} 
+          loading={loading} 
+          error={error} 
+        /> 
       </main>
+
+      <aside className="sidebar-right">
+        {/* ... nội dung sidebar ... */}
+      </aside>
     </div>
   );
 };

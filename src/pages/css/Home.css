@@ -1,80 +1,73 @@
-/* src/pages/css/Home.css */
+/* src/pages/css/Home.css - PHIÊN BẢN CUỐI CÙNG */
 
-/* --- Layout chính của trang Home --- */
+/* --- Container chính của trang Home --- */
 .home-container {
+    /* Vẫn dùng max-width và margin auto để căn giữa layout */
+    max-width: 975px;
+    width: 100%;
+    margin: 80px auto 0 auto;
+    padding: 0 20px;
+    
+    /* Thiết lập Flexbox */
     display: flex;
-    justify-content: center; /* Căn giữa toàn bộ nội dung theo chiều ngang */
-    gap: 30px; /* Khoảng cách giữa feed và sidebar */
-    padding: 20px;
-    margin-top: 60px; /* Khoảng cách so với Navbar */
-    background-color: #f0f2f5; /* Màu nền xám nhạt cho toàn trang */
-    min-height: calc(100vh - 60px); /* Đảm bảo nền xám lấp đầy chiều cao màn hình */
+    gap: 30px;
+    /* Dùng align-items: flex-start để các cột bắt đầu từ trên cùng */
+    align-items: flex-start; 
 }
 
-/* --- Khu vực nội dung chính (chứa CreatePost và Feed) --- */
+/* --- Khu vực nội dung chính (cột bên trái) --- */
 .main-content {
-    flex: 1; /* Cho phép co giãn */
-    max-width: 680px; /* Chiều rộng tối đa của feed giống Facebook/Instagram */
+    /* Quan trọng: Để Flexbox tự phân chia không gian */
+    flex: 1; /* Chiếm hết phần không gian còn lại */
+    min-width: 0; /* Mẹo để flex item không bị tràn khi nội dung quá dài */
 }
 
 /* --- Sidebar bên phải --- */
 .sidebar-right {
-    width: 300px;
-    display: none; /* Mặc định ẩn trên màn hình nhỏ */
+    width: 320px; /* Cho sidebar một chiều rộng cố định lớn hơn một chút */
+    flex-shrink: 0; /* Quan trọng: Ngăn không cho sidebar bị co lại */
+    display: none;
 }
 
-/* Hiển thị sidebar trên màn hình lớn hơn */
-@media (min-width: 1024px) {
+/* --- Responsive: Hiển thị sidebar trên màn hình lớn --- */
+@media (min-width: 1000px) {
     .sidebar-right {
         display: block;
-        /* Dùng position: sticky để sidebar "trôi" theo khi cuộn trang */
         position: sticky;
-        top: 80px; /* 60px (navbar) + 20px (padding) */
-        height: fit-content; /* Chiều cao tự động theo nội dung */
+        top: 80px;
+        height: fit-content;
+    }
+}
+
+/* --- Xử lý cho màn hình nhỏ hơn, chỉ hiển thị 1 cột --- */
+@media (max-width: 999px) {
+    .home-container {
+        justify-content: center;
+    }
+    .main-content {
+        max-width: 615px; /* Giới hạn chiều rộng trên màn hình tablet */
     }
 }
 
 
-/* --- Các style bạn đã viết (giữ lại và tinh chỉnh) --- */
-
-/* Kiểu cho ô tạo bài viết (di chuyển từ .create-post-placeholder cũ) */
-/* Tôi đã chuyển nó vào component CreatePost.css, nhưng để ở đây cũng được */
-/* Nếu bạn đã tạo CreatePost.css, bạn có thể xóa phần này đi */
-.create-post-container {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-/* ... (Các style khác cho form tạo bài viết nên nằm trong CreatePost.css) ... */
-
-
-/* --- Kiểu cho danh sách bài đăng (Feed) --- */
-/* Phần này nên nằm trong Feed.css để tách biệt, nhưng để đây cũng hoạt động */
-.post-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-
-/* --- Kiểu cho các chủ đề nổi bật trong Sidebar --- */
+/* --- Các style cho Card (giữ nguyên) --- */
+.create-post-container,
 .trending-topics {
     background-color: white;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dbdbdb;
+    margin-bottom: 20px;
 }
 
 .trending-topics h4 {
-    color: #65676b; /* Màu xám đậm hơn */
-    font-size: 16px;
+    color: #65676b;
+    font-size: 14px;
+    font-weight: 600;
     margin-top: 0;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e4e6eb; /* Thêm đường kẻ phân cách */
+    border-bottom: 1px solid #e4e6eb;
 }
 
 .trending-topics ul {
@@ -86,12 +79,13 @@
 .trending-topics li {
     margin-bottom: 12px;
     font-weight: 500;
-    color: #050505; /* Màu chữ chính */
+    color: #050505;
     cursor: pointer;
     padding: 8px;
     border-radius: 6px;
+    transition: background-color 0.2s ease;
 }
 
 .trending-topics li:hover {
-    background-color: #f0f2f5; /* Hiệu ứng hover */
+    background-color: #f0f2f5;
 }

@@ -6,6 +6,7 @@
 
 /* --- Chế độ Sáng (Mặc định) --- */
 :root {
+  --accent-color: #0095f6;
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   
   --bg-primary: #f0f2f5;
