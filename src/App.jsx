@@ -12,17 +12,13 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Messages from './pages/Messages';
+import EditProfile from './pages/EditProfile';
 
-const postData = {
-  author: 'Coder Dạo',
-  avatar: 'https://i.pravatar.cc/150?u=coderdao', // Lấy avatar ngẫu nhiên
-  content: 'Học React thật là vui! Đây là component Post đầu tiên của tôi, nó chứa cả LikeButton và Comment. Sử dụng props để truyền dữ liệu và state để quản lý tương tác là chìa khóa.',
-  comments: [
-    { author: 'Alice', text: 'Bài viết hay quá bạn ơi!' },
-    { author: 'Bob', text: 'Cấu trúc component rõ ràng, dễ hiểu.' },
-    { author: 'Chris', text: 'Mình cũng đang học React, cảm ơn bạn đã chia sẻ.' },
-  ],
-};
+// App component chính
+// Đây là nơi định nghĩa các route của ứng dụng
+// Sử dụng Routes và Route từ react-router-dom để định nghĩa các đường dẫn
+// Các trang sẽ được render vào Layout nếu được bảo vệ bởi ProtectedRoute
+
 
 function App() {
   return (
@@ -35,6 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/accounts/edit" element={<EditProfile />} /> 
           {/* Thêm các trang khác cần layout chung ở đây */}
         </Route>
       </Route>

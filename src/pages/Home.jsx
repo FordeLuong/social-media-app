@@ -16,7 +16,9 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
+        console.log("1. Bắt đầu fetch bài viết..."); // <-- Điệp viên 1
         const response = await getAllPosts();
+        console.log("2. API trả về:", response.data); // <-- Điệp viên 2
         setPosts(response.data);
         setError(null);
       } catch (err) {
@@ -24,6 +26,7 @@ const Home = () => {
         setError("Không thể tải được bài viết. Vui lòng thử lại sau.");
       } finally {
         setLoading(false);
+        console.log("3. Fetch hoàn tất, tắt loading."); // <-- Điệp viên 3
       }
     };
 
@@ -35,6 +38,16 @@ const Home = () => {
     // Thêm bài đăng mới vào đầu danh sách, cập nhật UI ngay lập tức
     setPosts([newPost, ...posts]);
   };
+  
+  const handlePostUpdate = (updatedPost) => {
+    // Cập nhật bài đăng trong danh sách hiện tại
+    setPosts(posts.map(post => post._id === updatedPost._id ? updatedPost : post));
+  }
+
+  const handlePostDelete = (postId) => {
+    // Xóa bài đăng khỏi danh sách hiện tại
+    setPosts(posts.filter(post => post._id !== postId));
+  }
 
   return (
     <div className="home-container">
@@ -47,12 +60,11 @@ const Home = () => {
           posts={posts} 
           loading={loading} 
           error={error} 
+
+          onPostUpdate={handlePostUpdate}
+          onPostDelete={handlePostDelete}
         /> 
       </main>
-
-      <aside className="sidebar-right">
-        {/* ... nội dung sidebar ... */}
-      </aside>
     </div>
   );
 };

@@ -13,6 +13,22 @@ export const getUserProfile = (userId) => {
   return api.get(`/users/${userId}`);
 };
 
-// Bạn có thể thêm các hàm khác ở đây trong tương lai, ví dụ:
-// export const updateUserProfile = (userId, profileData) => api.put(`/users/${userId}`, profileData);
-// export const followUser = (userId) => api.post(`/users/${userId}/follow`);
+export const getUserPosts = (userId) => {
+  // Gửi một request GET đến endpoint '/users/:userId/posts'
+  return api.get(`/users/${userId}/posts`);
+}
+
+export const followUser = (userId) => {
+  // Gửi một request POST đến endpoint '/users/:id/follow'
+  return api.post(`/users/${userId}/follow`);
+}
+
+export const unfollowUser = (userId) => {
+  // Gửi một request POST đến endpoint '/users/:id/unfollow'
+  return api.post(`/users/${userId}/unfollow`);
+}
+
+export const updateUserProfile = (userData) => {
+  // Gửi một request PUT đến endpoint '/users/profile' để cập nhật thông tin người dùng
+  return api.put('/users/profile', userData);
+}

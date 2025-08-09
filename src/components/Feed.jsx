@@ -5,7 +5,7 @@ import Post from './Post';
 import './css/Feed.css';
 
 // 1. NHẬN PROPS TỪ HOME.JSX
-const Feed = ({ posts, loading, error }) => {
+const Feed = ({ posts, loading, error, onPostDelete, onPostUpdate}) => {
   
   // 2. LOGIC RENDER GIỮ NGUYÊN, NHƯNG DỮ LIỆU LẤY TỪ PROPS
   if (loading) {
@@ -24,7 +24,13 @@ const Feed = ({ posts, loading, error }) => {
     <div className="post-list">
       {posts.map((post) => (
         // Chúng ta cần truyền cả hàm onPostUpdate xuống đây nữa
-        <Post key={post._id} postData={post} />
+        <Post 
+          key={post._id} 
+          postData={post} 
+          
+          onPostUpdate={onPostUpdate}
+          onPostDelete={onPostDelete} // Truyền hàm xóa bài đăng
+        />
       ))}
     </div>
   );

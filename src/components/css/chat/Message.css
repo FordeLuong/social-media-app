@@ -1,0 +1,68 @@
+/* src/components/chat/Message.css */
+
+/* --- Container chung cho mỗi tin nhắn --- */
+.message-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  max-width: 80%; /* Tin nhắn không nên quá dài */
+  align-self: flex-start; /* Mặc định căn lề trái (tin nhắn của người khác) */
+}
+
+/* --- Khi là tin nhắn của chính mình --- */
+.message-container.own {
+  align-self: flex-end; /* Căn lề phải */
+}
+
+.message-content {
+  display: flex;
+  align-items: flex-end; /* Căn avatar và bong bóng chat ở dưới cùng */
+  gap: 10px;
+}
+
+/* --- Khi là tin nhắn của chính mình, đảo ngược thứ tự avatar và bong bóng --- */
+.message-container.own .message-content {
+  flex-direction: row-reverse;
+}
+
+/* --- Avatar người gửi --- */
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* --- Bong bóng chat --- */
+.message-bubble {
+  background-color: #e4e6eb; /* Màu xám cho tin nhắn của người khác */
+  color: #050505;
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 100%; /* Đảm bảo bong bóng không tràn ra ngoài */
+}
+
+/* --- Khi là tin nhắn của chính mình, đổi màu bong bóng --- */
+.message-bubble.own {
+  background-color: #0084ff; /* Màu xanh dương cho tin nhắn của mình */
+  color: white;
+}
+
+.message-text {
+  margin: 0;
+  word-wrap: break-word; /* Tự động xuống dòng cho các từ dài */
+}
+
+/* --- Thời gian gửi tin nhắn --- */
+.message-timestamp {
+  font-size: 12px;
+  color: #65676b;
+  margin-top: 4px;
+  padding: 0 52px; /* Căn lề thẳng với bong bóng chat */
+  align-self: flex-start;
+}
+
+/* Căn lề phải cho timestamp của tin nhắn của mình */
+.message-container.own .message-timestamp {
+  align-self: flex-end;
+}
